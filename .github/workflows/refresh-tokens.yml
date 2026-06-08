@@ -1,0 +1,67 @@
+name: Refresh IPTV807 Tokens
+
+on:
+  schedule:
+    # 每天 UTC 00:00 (北京时区 08:00) 自动执行
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # 允许手动触发
+  push:
+    paths:
+      - 'refresh_tokens.py'  # 脚本更新时自动执行
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          # refresh_tokens.py only uses stdlib (subprocess, re, os)
+          # No extra dependencies needed
+      
+      - name: Run token refresh
+        run: python3 refresh_tokens.py
+        env:
+          PYTHONUNBUFFERED: 1
+      
+      - name: Check for changes
+        id: check
+        run: |
+          git add js/channels.js player/gt/
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No changes detected"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Changes detected!"
+          fi
+      
+      - name: Commit and push
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
+          git commit -m "chore: refresh tokens $TIMESTAMP"
+          git push
+      
+      - name: Deploy to Cloudflare Pages
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          npm install -g wrangler
+          npx wrangler pages deploy . --project-name iptv807 --branch main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
