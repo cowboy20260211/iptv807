@@ -110,15 +110,8 @@
         }
 
         let html = '';
-        var isGt = state.currentCategory === 'gt';
         channels.forEach(function(channel) {
-            var url;
-            if (isGt) {
-                url = 'player/gt/' + channel.id + '.html';
-            } else {
-                url = 'https://iptv807.com/?act=play&token=' +
-                    channel.token + '&tid=' + state.currentCategory + '&id=' + channel.id;
-            }
+            var url = 'player/' + state.currentCategory + '/' + channel.id + '.html';
             html += '<li>' +
                 '<a href="' + url + '" data-channel-id="' + channel.id + '" target="_blank" rel="noopener">' +
                 channel.name +
