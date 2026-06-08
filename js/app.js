@@ -111,7 +111,7 @@
 
         let html = '';
         channels.forEach(function(channel) {
-            var url = 'player/' + state.currentCategory + '/' + channel.id + '.html';
+            var url = 'player/' + state.currentCategory + '/' + channel.id;
             html += '<li>' +
                 '<a href="' + url + '" data-channel-id="' + channel.id + '" target="_blank" rel="noopener">' +
                 channel.name +
