@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>電視直播 - 網絡電視</title>
+    <meta name="description" content="網絡電視,網路電視,全球電視直播,高清電視,免費電視">
+    <meta name="keywords" content="網絡電視,網路電視,電視直播,手機版,電視,免費電視">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body>
+    <!-- 首頁 -->
+    <div id="page-home" class="page active">
+        <div class="header">
+            <h1>電視直播</h1>
+        </div>
+        <div class="content">
+            <ul class="category-list">
+                <li><a href="#category/itv" data-category="itv">綜合</a></li>
+                <li><a href="#category/ty" data-category="ty">體育</a></li>
+                <li><a href="#category/ys" data-category="ys">央視</a></li>
+                <li><a href="#category/ws" data-category="ws">衛視</a></li>
+                <li><a href="#category/gt" data-category="gt">港澳台</a></li>
+                <li><a href="#category/other" data-category="other">其他</a></li>
+                <li><a href="#category/movie" data-category="movie">電影</a></li>
+                <li><a href="#category/migu" data-category="migu">咪咕視頻</a></li>
+                <li><a href="#category/fjitv" data-category="fjitv">福建移動IPTV</a></li>
+                <li><a href="#category/hlitv" data-category="hlitv">黑龍江移動IPTV</a></li>
+                <li><a href="#category/ipv6" data-category="ipv6">IPv6網絡電視</a></li>
+            </ul>
+        </div>
+        <div class="footer">
+            <p>版權聲明 © 所有源來自互聯網搜索</p>
+        </div>
+    </div>
+
+    <!-- 分類頁面 -->
+    <div id="page-category" class="page">
+        <div class="header">
+            <a href="#" class="btn-back" id="btn-back-category">← 返回</a>
+            <h1 id="category-title">頻道列表</h1>
+        </div>
+        <div class="content">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索頻道...">
+            </div>
+            <ul class="channel-list" id="channel-list">
+                <!-- 動態加載頻道列表 -->
+            </ul>
+        </div>
+        <div class="footer">
+            <p>版權聲明 © 所有源來自互聯網搜索</p>
+        </div>
+    </div>
+
+    <script src="js/channels.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
